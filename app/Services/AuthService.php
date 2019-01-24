@@ -21,8 +21,10 @@ class AuthService extends BaseService
 
 		try {
 			$user = $this->userSvc->create($data);
-			$response['token'] = JWTAuth::fromUser($user);
-			return $response;
+			return [
+				'name' => $user->name,
+				'token' => JWTAuth::fromUser($user)
+			];
 		} catch (\Exception $e) {
 			throw new Error($e);
 		}
@@ -31,9 +33,9 @@ class AuthService extends BaseService
 	public function logout()
 	{
 		if(auth()->check()) {
-			auth()->logout(true);
+			return auth()->logout(true);
 		} else {
-			throw new Error(null,false,'User not found.');
+			throw new Error(null,false,'User not authenticated!');
 		}
 	}
 }

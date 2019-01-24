@@ -21,6 +21,9 @@ Route::namespace('API')->group(function(){
 	Route::post('/create_new','Auth\\Register');
 
 	Route::middleware('auth.token')->group(function(){
+
+		Route::post('logout','Auth\\Logout');
+
 		Route::post('/test',function(){
 			$user = auth()->user();
 			$data['user'] = $user;

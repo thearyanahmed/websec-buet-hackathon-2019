@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Auth;
 use App\Services\AuthService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register as RegisterRequest;
+use App\Http\Resources\UserResource;
 
 class Register extends Controller
 {
@@ -34,7 +35,8 @@ class Register extends Controller
         $response = $this->authService->register($data);
         // validate data
         // make custom request
-        return $this->jsonResponse($response);
+        return new UserResource($response);
+        // return $this->jsonResponse($response);
     }
 }
 
