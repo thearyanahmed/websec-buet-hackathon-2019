@@ -27,6 +27,7 @@ Route::namespace('API')->middleware('throttle:15,5')->group(function(){
 	Route::middleware('auth.token')->group(function(){
 
 		Route::post('/post/new','Post\\Store');
+		Route::post('/post/{id}','Post\\Show');
 		Route::patch('/post/{id}/update','Post\\Update');
 		Route::post('/posts','Post\\Index');
 		Route::post('logout','Auth\\Logout');
