@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::namespace('API')->group(function(){
+	Route::post('/create_new','Auth\\Register');
+
+	Route::middleware('auth.token')->group(function(){
+		Route::post('/test',function(){
+			$user = auth()->user();
+			$data['user'] = $user;
+			$data['message'] = 'mew';
+			return response()->json($data,200);
+		});
+	});
 });

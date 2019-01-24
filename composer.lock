@@ -1678,12 +1678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thearyanahmed/service-packer.git",
-                "reference": "d1e69e1abff053346e93edfe0d17acede5ddd0a8"
+                "reference": "4ff5c05c84795126b99febccae0266c463cef183"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thearyanahmed/service-packer/zipball/d1e69e1abff053346e93edfe0d17acede5ddd0a8",
-                "reference": "d1e69e1abff053346e93edfe0d17acede5ddd0a8",
+                "url": "https://api.github.com/repos/thearyanahmed/service-packer/zipball/4ff5c05c84795126b99febccae0266c463cef183",
+                "reference": "4ff5c05c84795126b99febccae0266c463cef183",
                 "shasum": ""
             },
             "type": "package",
@@ -1702,7 +1702,7 @@
                     "email": "thearyanahmed@gmail.com"
                 }
             ],
-            "time": "2019-01-19T01:09:35+00:00"
+            "time": "2019-01-24T05:48:51+00:00"
         },
         {
             "name": "psr/container",
