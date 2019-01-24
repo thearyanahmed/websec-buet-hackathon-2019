@@ -33,4 +33,22 @@ class PostPolicy
 
         return false;
     }
+
+    public function delete(User $user)
+    {
+        if($user->isModerator()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function approve(User $user)
+    {
+        if($user->isModerator()) {
+            return true;
+        }
+
+        return false;
+    }
 }

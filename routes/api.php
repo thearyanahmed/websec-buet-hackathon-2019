@@ -30,13 +30,17 @@ Route::namespace('API')->middleware('throttle:15,5')->group(function(){
 		Route::post('/post/{id}','Post\\Show');
 		Route::patch('/post/{id}/update','Post\\Update');
 		Route::post('/posts','Post\\Index');
-		Route::post('logout','Auth\\Logout');
+		Route::post('/logout','Auth\\Logout');
 
-		Route::post('/test',function(){
-			$user = auth()->user();
-			$data['user'] = $user;
-			$data['message'] = 'mew';
-			return response()->json($data,200);
-		});
+		Route::delete('/post/{id}/delete','Post\\Delete');
+		Route::patch('/post/{id}/approve','Post\\Approve');
+
+		Route::post('/user/{id}/profile','User\\Profile');
+		Route::patch('/user/{id}/profile/update','User\\Update');
+		Route::delete('/user/{id}/delete','User\\Delete');
+
+		Route::patch('/moderator/upgrade/{id}','User\\Upgrade');
+		Route::patch('/moderator/downgrade/{id}','User\\Downgrade');
+
 	});
 });

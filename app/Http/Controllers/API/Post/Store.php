@@ -6,6 +6,7 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
 use App\Http\Resources\GenericResponseResource as GenericResponse;
+use App\Models\Post;
 
 class Store extends Controller
 {
@@ -26,7 +27,8 @@ class Store extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $this->postSvc->create($data);
+        // $this->postSvc->create($data);
+        Post::create($data);
 
         $response = [
             'status'  => 'success',

@@ -34,6 +34,11 @@ class Update extends Controller
 
         $data = $request->validated();
 
+        foreach($data as $key => $value) {
+            if($value == '' || empty($value)) {
+                unset($data[$key]);
+            }
+        }   
         try {
             if(auth()->user()->isAdmin()) {
                 $data['last_modified_by'] = auth()->user()->id;

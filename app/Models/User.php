@@ -28,6 +28,15 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::deleting(function($user){
+            $user->posts->each->delete();
+        });
+    }
     /**
      * ==========================
      * Add comment 
@@ -52,11 +61,16 @@ class User extends Authenticatable implements JWTSubject
 
     public function isAdmin() : bool
     {
-        return $this->role === 'admin';
+        return $this->role == 'admin';
     }
 
     public function isModerator() : bool
     {
-        return $this->role === 'moderator';
-    }    
+        return $this->role == 'moderator';
+    } 
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);       
+    }   
 }
