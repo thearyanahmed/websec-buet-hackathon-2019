@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->boolean('status')
                     ->default(0)
-                    ->comment('0 Referes to `the post is not apporvoed`,1 Referes to `the post is approved`');
+                    ->comment('0 Referes to `the post is not apporoved`,1 Referes to `the post is approved`');
             $table->integer('last_modified_by')
                 ->references('id')
                 ->on('users')

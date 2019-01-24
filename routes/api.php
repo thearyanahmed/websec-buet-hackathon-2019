@@ -17,15 +17,18 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::namespace('API')->group(function(){
+Route::namespace('API')->middleware('throttle:15,5')->group(function(){
 
 	Route::middleware('guest')->group(function(){
-		Route::post('/create_new','Auth\\Register');
+		Route::post('/new_account','Auth\\Register');
 		Route::post('/login','Auth\\Login');
 	});
 
 	Route::middleware('auth.token')->group(function(){
 
+		Route::post('/post/new','Post\\Store');
+		Route::patch('/post/{id}/update','Post\\Update');
+		Route::post('/posts','Post\\Index');
 		Route::post('logout','Auth\\Logout');
 
 		Route::post('/test',function(){

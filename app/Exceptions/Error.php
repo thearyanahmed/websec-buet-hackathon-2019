@@ -27,9 +27,9 @@ class Error extends Exception
        
        $errorData['status'] = 'error';
        
-       if(!$showError) {
+       if(!$this->showError) {
             if(empty($this->message)) {
-                $this->message = 'Sorry something went wrong'
+                $this->message = 'Sorry something went wrong';
             }
        } else {
             if($this->exception instanceof \Exception) {
