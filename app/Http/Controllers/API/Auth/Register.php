@@ -28,15 +28,9 @@ class Register extends Controller
      */
     public function __invoke(RegisterRequest $request)
     {
-        $data = $request->validated();
-        $message  = ['message' => 'working','data' => $data];
-
-        
+        $data     = $request->validated();
         $response = $this->authService->register($data);
-        // validate data
-        // make custom request
         return new UserResource($response);
-        // return $this->jsonResponse($response);
     }
 }
 

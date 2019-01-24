@@ -30,6 +30,25 @@ class AuthService extends BaseService
 		}
 	}
 
+	public function login(array $data)
+	{
+		// must be unauthenticated
+        try {
+            if (! $token = JWTAuth::attempt($data)) {
+                $response  = [
+                    'status'  => 'error',
+                    'message' => 'Invalid Credentials'
+                ];
+            } else {
+                $response['token'] = $token;
+            }
+        	return $response;
+
+        } catch ( JWTException $e) {
+            throw new Error($e);
+        }
+	}
+
 	public function logout()
 	{
 		if(auth()->check()) {

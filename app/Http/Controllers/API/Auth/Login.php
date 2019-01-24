@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Exceptions\Error;
 use App\Http\Resources\GenericResponseResource as GenericResponse;
-class Logout extends Controller
-{
-    private $authSvc;
 
+class Login extends Controller
+{
     public function __construct(AuthService $authSvc)
     {
-        // guard auth middleware
-        $this->authSvc = $authSvc;    
+        // $this->middleware('guest must be called');
+        $this->authSvc = $authSvc;
     }
     /**
      * Handle the incoming request.
@@ -21,15 +21,10 @@ class Logout extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(LoginRequest $request)
     {
-        $this->authSvc->logout();
-
-        $response = [
-            'status'  => 'success',
-            'message' => 'User has been logged out successfully!'
-        ];
-        
+        $credentials = $request->validated();
+        $response    = $this->authSvc->login($credentials);
         return new GenericResponse($response);
     }
 }

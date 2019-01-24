@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
-
+use App\Http\Resources\GenericResponseResource as GenericResponse;
 class Error extends Exception
 {
     protected $exception;
@@ -39,7 +39,6 @@ class Error extends Exception
             }
         }
         $errorData['message'] = $this->message;
-
-       return response()->json($errorData,$this->statusCode);
+        return new GenericResponse($errorData);
     }
 }

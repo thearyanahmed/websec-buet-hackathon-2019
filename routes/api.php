@@ -18,7 +18,11 @@ use Illuminate\Http\Request;
 // });
 
 Route::namespace('API')->group(function(){
-	Route::post('/create_new','Auth\\Register');
+
+	Route::middleware('guest')->group(function(){
+		Route::post('/create_new','Auth\\Register');
+		Route::post('/login','Auth\\Login');
+	});
 
 	Route::middleware('auth.token')->group(function(){
 
