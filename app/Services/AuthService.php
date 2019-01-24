@@ -27,4 +27,13 @@ class AuthService extends BaseService
 			throw new Error($e);
 		}
 	}
+
+	public function logout()
+	{
+		if(auth()->check()) {
+			auth()->logout(true);
+		} else {
+			throw new Error(null,false,'User not found.');
+		}
+	}
 }

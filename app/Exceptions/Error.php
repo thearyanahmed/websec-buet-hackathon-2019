@@ -10,19 +10,36 @@ class Error extends Exception
     
     protected $showError;
 
-    public function __construct(Exception $exception,bool $showError = true)
+    protected $message ;
+
+    protected $statusCode;
+    public function __construct(Exception $exception = null,bool $showError = true,$message = null,$statusCode = 422)
     {
         $this->exception = $exception;    
     	$this->showError = $showError;
+        $this->message = $message;
+        $this->statusCode = $statusCode;
     }
 
     public function render()
     {	
     	//change get message 
-        $message = [
-            'type'    => 'error',
-            'message' => $showError ? $this->exception->getMessage() : 'Sorry something went wrong!'
-        ];
-        return redirect()->back()->with($message);
+       
+       $errorData['status'] = 'error';
+       
+       if(!$showError) {
+            if(empty($this->message)) {
+                $this->message = 'Sorry something went wrong'
+            }
+       } else {
+            if($this->exception instanceof \Exception) {
+                $this->message = $this->exception->getMessage();
+            } else {
+                $this->message = 'Sorry something went wrong';
+            }
+        }
+        $errorData['message'] = $this->message;
+
+       return response()->json($errorData,$this->statusCode);
     }
 }
