@@ -11,6 +11,12 @@ use App\Http\Resources\GenericResponseResource as GenericResponse;
 
 class Approve extends Controller
 {
+    private $postSvc;
+
+    public function __construct(PostService $postSvc)
+    {
+        $this->postSvc = $postSvc;
+    }
     /**
      * Handle the incoming request.
      *
@@ -20,8 +26,8 @@ class Approve extends Controller
     public function __invoke($id)
     {   
         // check if it is integer,use middleware
-        $post = Post::find($id);     
-        
+        $post = $this->postSvc->find($id);
+
         if(empty($post)) {
             throw new Error(null,false,'Sorry,post not found.',404);
         }
@@ -38,7 +44,7 @@ class Approve extends Controller
                 $post->update($data);
 
                 $response = [
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Post has been approved successfully!'
                 ];
                 return new GenericResponse($response );

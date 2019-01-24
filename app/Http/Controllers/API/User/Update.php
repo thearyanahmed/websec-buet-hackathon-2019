@@ -26,14 +26,14 @@ class Update extends Controller
     {
         $user = $this->userSvc->find($id);
         // authorize first
-        $data = $request->validated();
-
-        foreach($data as $key => $value) {
-            if($value == '' || empty($value)) {
-                unset($data[$key]);
-            }
-        }   
         if(auth()->user()->can('update',User::class)) {
+            $data = $request->validated();
+
+            foreach($data as $key => $value) {
+                if($value == '' || empty($value)) {
+                    unset($data[$key]);
+                }
+            }
            try {
                 $user->update($data);                
                 $response = [

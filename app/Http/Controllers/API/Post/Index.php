@@ -27,7 +27,10 @@ class Index extends Controller
             $posts = $this->postSvc->all();
         } else {
 
-            $posts = $this->postSvc->getPosts(auth()->user()->id);
+            $conds = [['status','=',1]];
+            $secondaryConds = [['user_id','=',$userid]];
+                
+            $posts = $this->postSvc->instance()->where($conds)->orWhere($secondaryConds)->get();
         }
 
         if(count($posts) < 1) {

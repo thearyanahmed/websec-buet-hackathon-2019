@@ -7,6 +7,7 @@ use App\Services\PostService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GenericResponseResource as GenericResponse;
 use App\Exceptions\Error;
+
 class Update extends Controller
 {
     private $postSvc;
@@ -23,7 +24,7 @@ class Update extends Controller
      */
     public function __invoke(UpdateRequest $request,$id)
     {
-        $post = $this->postSvc->find($id);
+        $post = $this->postSvc->find($id); 
 
         if(empty($post)) {
             throw new Error(null,false,'Sorry,post not found.',404);
